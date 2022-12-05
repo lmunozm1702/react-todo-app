@@ -1,21 +1,23 @@
 import React from "react"
+import { v4 as uuidv4 } from 'uuid'
 import TodoList from './TodoList'
 import TodoHeader from "./TodoHeader"
+import TodoInput from "./TodoInput"
 class MainContainer extends React.Component {
   state = {
     toDos: [
       {
-        id: 1,
+        id: uuidv4(),
         title: "Breakfast",
         completed: true
       },
       {
-        id: 2,
+        id: uuidv4(),
         title: "Go to swim",
         completed: true
       },
       {
-        id: 3,
+        id: uuidv4(),
         title: "Breakfast again",
         completed: false
       }
@@ -46,10 +48,22 @@ class MainContainer extends React.Component {
     });
   }
 
+  addTodoItem = (title) => {
+    const newTask = {
+      id: uuidv4(),
+      title: title,
+      completed: false
+    }
+    this.setState({
+      toDos: [...this.state.toDos, newTask]
+    });
+  };
+
   render() {
     return (
       <div>
         <TodoHeader />
+        <TodoInput addTodoProps={this.addTodoItem} />
         <TodoList
           toDos={this.state.toDos}
           handleChangeProps={this.handleChange}
