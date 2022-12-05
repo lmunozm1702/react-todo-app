@@ -59,6 +59,17 @@ class MainContainer extends React.Component {
     });
   };
 
+  setUpdate = (updatedTitle, id) => {
+    this.setState({
+      toDos: this.state.toDos.map(todo => {
+        if (todo.id === id) {
+          todo.title = updatedTitle
+        }
+        return todo
+      }),
+    })
+  }
+
   render() {
     return (
       <div className="container">
@@ -68,7 +79,9 @@ class MainContainer extends React.Component {
           <TodoList
             toDos={this.state.toDos}
             handleChangeProps={this.handleChange}
-            deleteTodoProps={this.deleteTodo} />
+            deleteTodoProps={this.deleteTodo}
+            setUpdate={this.setUpdate}
+          />
         </div>
       </div>
     )
