@@ -5,23 +5,7 @@ import TodoHeader from "./TodoHeader"
 import TodoInput from "./TodoInput"
 class MainContainer extends React.Component {
   state = {
-    toDos: [
-      {
-        id: uuidv4(),
-        title: "Breakfast",
-        completed: true
-      },
-      {
-        id: uuidv4(),
-        title: "Go to swim",
-        completed: true
-      },
-      {
-        id: uuidv4(),
-        title: "Breakfast again",
-        completed: false
-      }
-    ]
+    toDos: [],
   }
 
   handleChange = (id) => {
@@ -68,6 +52,23 @@ class MainContainer extends React.Component {
         return todo
       }),
     })
+  }
+
+  componentDidMount() {
+    const temp = localStorage.getItem("todos")
+    const loadedTodos = JSON.parse(temp)
+    if (loadedTodos) {
+      this.setState({
+        toDos: loadedTodos
+      })
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.toDos !== this.state.toDos) {
+      const temp = JSON.stringify(this.state.toDos)
+      localStorage.setItem("todos", temp)
+    }
   }
 
   render() {
