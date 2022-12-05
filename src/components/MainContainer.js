@@ -1,7 +1,6 @@
 import React from "react"
 import TodoList from './TodoList'
 import TodoHeader from "./TodoHeader"
-
 class MainContainer extends React.Component {
   state = {
     toDos: [
@@ -22,11 +21,39 @@ class MainContainer extends React.Component {
       }
     ]
   }
+
+  handleChange = (id) => {
+    this.setState(prevState => ({
+      toDos: prevState.toDos.map(todo => {
+        if (todo.id === id) {
+          return {
+            ...todo,
+            completed: !todo.completed,
+          }
+        }
+        return todo;
+      }),
+    }));
+  }
+
+  deleteTodo = (id) => {
+    this.setState({
+      toDos: [
+        ...this.state.toDos.filter(todo => {
+          return todo.id !== id;
+        })
+      ]
+    });
+  }
+
   render() {
     return (
       <div>
         <TodoHeader />
-        <TodoList todos={this.state.toDos} />
+        <TodoList
+          toDos={this.state.toDos}
+          handleChangeProps={this.handleChange}
+          deleteTodoProps={this.deleteTodo} />
       </div>
     )
   }
