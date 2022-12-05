@@ -61,13 +61,15 @@ class MainContainer extends React.Component {
 
   render() {
     return (
-      <div>
-        <TodoHeader />
-        <TodoInput addTodoProps={this.addTodoItem} />
-        <TodoList
-          toDos={this.state.toDos}
-          handleChangeProps={this.handleChange}
-          deleteTodoProps={this.deleteTodo} />
+      <div className="container">
+        <div className="inner">
+          <TodoHeader />
+          <TodoInput addTodoProps={this.addTodoItem} />
+          <TodoList
+            toDos={this.state.toDos}
+            handleChangeProps={this.handleChange}
+            deleteTodoProps={this.deleteTodo} />
+        </div>
       </div>
     )
   }
